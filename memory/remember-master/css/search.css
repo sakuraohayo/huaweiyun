@@ -1,0 +1,339 @@
+/*记忆搜索页面样式*/
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.divcss5-a{
+    margin:10px 0;
+}
+
+body{
+    background-color: #eaeaea;
+}
+
+.header{
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1002;
+}
+
+.header b{
+    color:#ffffff;
+}
+
+/*Topbar */
+.topbar{
+    background: #333;
+    height:60px;
+    font-size: 36px;
+    
+}
+
+/* 使得列表值横向排列 */
+.topbar li{
+    display: inline;
+    /* 装饰topbar中的字体*/
+    color:#f7f4f4;
+    /* 字间距 */
+    margin-right: 14px;
+}
+
+/* 使得两个ul在同一行显示 */
+.topbar ul{
+    /* border: 1px red solid; */
+    display: inline-block;
+    /* ul行高设置 */
+    line-height:38px ;
+}
+
+/* 使得右侧ul靠页面右端显示  */
+.topbar-right{
+    position: absolute;
+    right: 150px;
+    
+}
+.topbar-left{
+    margin-left: 150px;
+    font-size: 36px;
+}
+
+/*搜索框*/
+.search{
+    width: 30%;            
+    margin: 10px auto;
+    display: flex;
+}
+.search input{
+    float: left; /*左浮动*/
+    flex: 4;
+    height: 40px;
+    outline: none;
+    border: 1px solid #01113d;
+    box-sizing: border-box; /*盒子模型，怪异IE盒子模型，width=content+border*2+padding*2*/
+    padding-left: 10px;
+}
+.search button{
+    float: right;
+    flex: 1;
+    height: 40px;
+    background-color:#01113d;
+    color: white;
+    border-style: none;
+    outline: none;
+}
+.search button i{
+    font-style: normal;
+}
+.search button:hover{
+    font-size: 20px;
+}
+
+/*
+.search-box{    
+    position: absolute;    
+    top:50%;    
+    left:50%;    
+    transform: translate(-50%,-50%);    
+    background: #2f3640;  
+    height: 40px;    
+    border-radius: 40px;    
+    padding: 10px;
+}
+.search-box:hover>.search-txt{    
+    width: 240px;    
+    padding: 0 6px;
+}
+.search-box:hover>.search-btn{   
+    background:white;
+
+}
+.search-btn{    
+    color: #e84118;    
+    float: right ;    
+    width: 40px;    
+    height: 40px;    
+    border-radius: 50%;    
+    background: #2f3640;    
+    display: flex;    
+    justify-content: center;    
+    align-items: center;
+}
+.search-txt{    
+    border: none;    
+    background: none;    
+    outline: none;    
+    float: left;    
+    padding: 0;    
+    color: white;    
+    font-size: 16px;    
+    transition: 0.4s;    
+    line-height: 40px;    
+    width: 0px;
+}
+*/
+
+/*结果输出*/
+#select-result{
+    margin: 10px auto;
+    text-align: center;
+    position: relative;
+    color:#01113d;
+}
+
+#select-result b{
+    font-size: 16px;
+    font-style: italic;
+    color: #01113d;
+}
+
+/*检索结果框*/
+.options-frame{
+    border:2px solid #a1a1a1;
+	padding:10px 40px; 
+    background:#fcfcfc;
+    height:100px;
+	width:700px;
+    box-shadow: 10px 10px 5px #888888;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin: auto;
+    margin-bottom: 5px;
+}
+
+.options-frame h3{
+    font-size: 24px;
+    font-family: 宋体;
+    text-align: left;
+}
+
+.options-frame p{
+    font-size: 12px;
+    text-indent: 2ch;
+}
+
+.options-frame h6{
+    position: absolute;
+    font-family: 隶书;
+    font-size: 10px;
+    text-align: left;
+    font-style: italic;
+    vertical-align: bottom;
+}
+
+
+/* Instagram Panel*/
+.instagram-panel {
+	background: url(../resources/images/instagram.jpg) no-repeat center top;
+	text-align: center;
+    background-position: center center;
+    margin-top: 10px;
+}
+.instagram-panel i {
+	color: white;
+	margin-top: 35px;
+}
+.instagram-panel p {
+	margin: 5px;
+	color: white;
+}
+
+/*Content Panel*/
+.content-panel {
+	background: #ffffff;
+	box-shadow: 0px 3px 2px #aab2bd;
+	padding-top: 15px;
+	padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+.content-panel h4 {
+	margin-left: 10px;
+}
+
+
+/* memo show*/
+#memo-show {
+	background: url(../static/instagram.jpg) no-repeat center top;
+	margin-top: -15px;
+	background-attachment: relative;
+	background-position: center center;
+	min-height: 150px;
+	width: 100%;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#memo-show h3 {
+	color: white;
+	padding-top: 50px;
+	margin: 0px;
+	text-align: center;
+}
+#memo-show h6 {
+    color: white;
+    padding-top: 50px;
+    margin: 0px;
+    text-align: center;
+}
+#memo-show button {
+	color: white;
+	text-align: center;
+	margin-bottom: 0px;
+	font-weight: 900;
+}
+
+.memo-show {
+	background: #4ECDC4;
+	height: 50px;
+}
+.memo-show1 {
+    background: white;
+    height: 50px;
+}
+.memo-show:hover {
+	background: #2f2f2f;
+  -webkit-transition: background-color 0.6s;
+  -moz-transition: background-color 0.6s;
+  -o-transition: background-color 0.6s;
+  transition: background-color 0.6s;
+  cursor: pointer;
+}
+.memo-show1:hover {
+    background: red;
+  -webkit-transition: background-color 0.6s;
+  -moz-transition: background-color 0.6s;
+  -o-transition: background-color 0.6s;
+  transition: background-color 0.6s;
+  cursor: pointer;
+}
+.memo-show p {
+	color: white;
+	padding-top: 15px;
+	font-weight: 400;
+	font-size: 15px;
+}
+.memo-show1 p {
+    color: black;
+    padding-top: 15px;
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.select-content{
+    margin-top: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.wrapper1{
+    display: inline-block;
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    padding-top: 0px;
+    width: 100%;
+}
+.button {
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;   
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #90EE90;
+  border: none;
+  border-radius: 15px;
+  
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(2px);
+}
+
+#sidebar{
+    width: 210px;
+    height: 100%;
+    position: fixed;
+    background: #2f323a;
+}
+
+#sidebar p{
+    font-size: medium;
+    color:#fcfcfc;
+}

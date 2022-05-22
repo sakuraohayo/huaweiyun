@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Remember</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="../assets/images/favicon_03.ico">
+
+        <!-- Icons css -->
+        <link href="../assets/libs/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/dripicons/webfont/webfont.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css" />
+
+        <!-- App css -->
+        <!-- build:css -->
+        <link href="../assets/css/app.css" rel="stylesheet" type="text/css" />
+        <!-- endbuild -->
+
+    </head>
+
+    <body class="bg-account-pages">
+
+        <!-- Login -->
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="wrapper-page">
+                            <div class="account-pages">
+                                <div class="account-box">
+
+                                    <!-- Logo box-->
+                                    <div class="account-logo-box">
+                                        <h2 class="text-uppercase text-center">
+											<a class="text-success">
+												<span><img src="../assets/images/Remember-logo.png" alt="" height="50"></span> 
+											</a>
+										</h2>
+                                    </div>
+
+                                    <div class="account-content">
+                                        <form action="#" id="loginForm">
+                                            <div class="form-group mb-3">
+                                                <label for="emailaddress" class="font-weight-medium">电子邮箱</label>
+												<span class="text-muted float-right" id="message"></span>
+                                                <input class="form-control" type="email" id="emailaddress" required="" placeholder="请输入您的邮箱" onblur="postComment()">
+                                            </div>
+
+                                            <div class="form-group mb-3">
+                                                <a href="auth-recoverpassword.html" class="text-muted float-right"><small>忘记密码？</small></a>
+                                                <label for="password" class="font-weight-medium">密码</label>
+                                                <input class="form-control" type="password" required="" id="password" placeholder="请输入您的密码" onblur="postComment1()">
+												<span class="text-muted float-right" id="message1"></span>
+											</div>
+
+                                            <div class="form-group row text-center">
+                                                <div class="col-12">
+                                                    <button class="btn btn-block btn-success waves-effect waves-light" type="button" id="sub">登录</button>
+                                                </div>
+                                            </div>
+                                        </form> <!-- end form -->
+
+                                        <div class="row mt-3">
+                                            <div class="col-12 text-center">
+                                                <p class="text-muted">没有账号？ <a href="auth-register.html" class="text-dark m-l-5"><b>注册</b></a></p>
+                                            </div>
+                                        </div> <!-- end row-->
+                                    </div> <!-- end account-content -->
+
+                                </div> <!-- end account-box -->
+                            </div>
+                            <!-- end account-page-->
+                        </div>
+                        <!-- end wrapper-page -->
+
+                    </div> <!-- end col -->
+                </div> <!-- end row -->
+            </div> <!-- end container -->
+        </section>
+        <!-- END HOME -->    
+		
+        <!-- jQuery  -->
+        <script src="../assets/libs/jquery/jquery.min.js"></script>
+        <script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/libs/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+
+        <!-- App js -->
+        <script src="../assets/js/jquery.core.js"></script>
+        <script src="../assets/js/jquery.app.js"></script>
+		<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		
+		<script>
+			jQuery(document).ready(function(){
+				//alert($.cookie("token"));
+				$.cookie("token",null);
+				//alert($.cookie("token"));
+			});
+			
+			$("#sub").on("click",function(){
+			
+				postComment();  //验证邮箱
+				postComment1();  //验证密码
+				
+				var emailaddress = $("#emailaddress").val();
+				var pass = $("#password").val();
+				
+				var NowTime = new Date();
+				NowTime.setTime(NowTime.getTime()+60*1000*60*9);  //注意要多加8小时，我们位于东八区比标准时间相差8小时
+				
+				var data = {
+					email:emailaddress,
+					password:pass,
+				};
+				
+				$.ajax({                     
+					async:false,　　　　　　　
+					url:"http://remember.icube.fun:8080/login",            //引号内为处理数据的代码地址，如果是php就是test.php
+					type:"post",
+					data:data,
+					dataType:"json",
+					success: function(result){
+						if(result["code"] == 3){
+							$.cookie("token",result["data"]["token"],{expires:NowTime});
+							$.cookie("token").expires = 30;
+							$.cookie("username",result["data"]["username"],{expires:NowTime});
+							$.cookie("username").expires = 30;
+							window.location.href = "index_login.html";
+						}
+						else if(result["code"] == -6){
+							alert(result["message"]);
+						}
+						else if(result["code"] == -7){
+							alert(result["message"]);
+						}
+					},
+					error:function(XMLHttpRequest, textStatus, errorThrown){
+                        alert("网络请求错误！");
+						// alert("请求对象XMLHttpRequest: "+XMLHttpRequest);
+						// alert("错误类型textStatus: "+textStatus);
+						// alert("异常对象errorThrown: "+errorThrown);
+					}
+				});
+			});
+		</script>
+		
+		<script>
+			function postComment() {
+				//验证邮箱
+				if($("#emailaddress").val() == ''){
+					$("#message").html("<font color='red'><small>邮箱地址不能为空！</small></font>");
+				}
+				else if(!$("#emailaddress").val().match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
+					$("#message").html("<font color='red'><small>邮箱格式不正确！请重新输入!</small></font>");
+				}else{
+					//$("#message").html("<font color='green'><small>邮箱格式正确！</small></font>");
+					$("#message").html("");
+				}
+			}
+			
+			function postComment1() {
+				//验证密码
+				if($("#password").val() == ''){
+					$("#message1").html("<font color='red'><small>密码不能为空！</small></font>");
+				}
+				else{
+					$("#message1").html("");
+				}
+			}
+		</script>
+		
+    </body>
+</html>

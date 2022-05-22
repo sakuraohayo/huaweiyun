@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Remember</title>
+	
+	<!-- App favicon -->
+    <link rel="shortcut icon" href="../assets/images/favicon_03.ico">
+
+	<link rel="stylesheet" href="../css/index.css">
+	<!--jquery support-->
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+</head>
+<body>
+
+
+<div style="color: whitesmoke;position: absolute;float: right;margin-top: 300px;margin-left: 800px">
+    <a href="javascript:show();" style="text-decoration:none;color: whitesmoke" ><h1>I Remember</h1></a>
+
+    <a href="auth-login.html" style="color: white;font-size: 50px;text-decoration:none;" >进入我的记忆海……</a>
+</div>
+<div id="memory" style="display:none;text-align: center;position:absolute;width:500px;height: 500px;margin-left: 200px;margin-top: 200px;background-color: #ffffff; z-index: 2147000001;border-radius: 5px; font-weight: bold; color: #535e66;">
+    <div id="top" style="height: 30px;padding: 14px 30px; line-height: 26px; overflow-x: hidden; overflow-y: auto;border-bottom: solid 1px #eef0f1;}">
+        <span style="font-size: 18px; display: block; float: left; height: 30px; position: relative;">TA的记忆</span>
+
+    </div>
+
+    <div id="img" style="margin-top: 20px"></div>
+    <br>
+    <div id="content" style="overflow:auto;width: auto;margin-left: 20px;margin-right: 20px;height: 100px"></div>
+    <br>
+    <button onclick="change()" style="background-color:#0095d9;cursor: pointer;width: 95px; height: 35px;color: #FFFFFF; border-radius: 5px;">换一个</button>
+    <button onclick="none()" style="background-color:#546a79;cursor: pointer;width: 95px; height: 35px;color: #FFFFFF; border-radius: 5px;">关闭</button>
+</div>
+<script>
+    function show(){
+        $("#memory").css("display","block");
+        $.ajax({
+            type:"POST",
+            url:"http://remember.icube.fun:8080/randomMemory",
+            dataType:"JSON",
+            success:function (res) {
+                var html="";
+                html=res.data.Memory.content;
+                $("#content").html(html);
+                var html2="<img src=\"http://remember.icube.fun:8080/get-photo?photo_name="+res.data.Memory.photo[0]+"\" style=\"width: auto;height:200px\">";
+
+                $("#img").html(html2);
+            },
+
+        });
+    }
+
+    function none(){
+        $("#memory").css("display","none");
+        console.log("触发close");
+    }
+
+    function change() {
+        $.ajax({
+            type:"POST",
+            url:"http://remember.icube.fun:8080/randomMemory",
+            dataType:"JSON",
+            success:function (res) {
+                console.log(res);
+                var html="";
+                html=res.data.Memory.content;
+                $("#content").html(html);
+                var html2="<img src=\"http://remember.icube.fun:8080/get-photo?photo_name="+res.data.Memory.photo[0]+"\" style=\"width: auto;height:200px\">";
+
+                $("#img").html(html2);
+                },
+
+        });
+    }
+</script>
+<script id="vertexShader" type="x-shader/x-vertex">
+  varying vec2 v_uv;
+void main() {
+  v_uv = uv;
+	gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.);
+}
+</script>
+
+<script id="fragmentShader" type="x-shader/x-fragment">
+#define PI2 6.28318530718
+#define PI 3.1415926535897
+
+uniform vec2 u_mouse;
+uniform vec2 u_resolution;
+uniform float u_time;
+
+varying vec2 v_uv;
+
+mat2 r2(float a) {
+    return mat2(cos(a), -sin(a), sin(a),cos(a));
+}
+
+float hash2( vec2 p) {
+    p = fract(p*vec2(125.34, 456.21));
+    p+= dot(p, p+45.32);
+    return fract(p.x*p.y);
+}
+
+vec2 hash( vec2 p ) {
+	p *= mat2( 127.1,-311.7,27.3,215.3 );
+	return 2.*fract(sin(p)*43758.5453123) -1.;
+} 
+
+float star( vec2 p, float flare) {
+
+    float d = length(p);
+    // falloff for light
+    float m = .01/d;
+    
+    float col = m;
+    
+    // light rays
+    float rays = max(0.,.45 - abs(p.x*p.y*1000.));
+    col += rays * flare;
+    // rotate and do again
+    p *= r2(PI/4.);
+    rays = max(0.,.5 - abs(p.x*p.y*1000.));
+    col += rays *.3 * flare;
+  
+    col *= smoothstep(.5,.2,d);
+    return col;
+    
+}
+
+vec3 star_layer(vec2 p) {
+  vec3 col = vec3(0.);
+	vec2 pg = fract(p)-.5;
+  vec2 id = floor(p);
+  for(int y=-1;y<=1;y++) {
+    for(int x=-1;x<=1;x++) {
+                
+      vec2 offset = vec2(x,y);
+      float pid = hash2(id+offset);
+      float size = fract(pid*345.32);
+      float rn = fract(pid*645.32);
+      //position
+      vec2 pos = pg-offset-(vec2(pid,fract(pid*2.))-.5);
+
+      float star = star(pos,smoothstep(.86,1.,size));
+      // color stuff
+      vec3 wv =  vec3(1., rn, rn)*sin(pid*943.321+u_time*.5)*PI;
+      vec3 color = sin(wv)*1.5+1.5;
+      star *= sin(u_time*2.5+pid*6.2831)*1.+1.5;
+      // slap that math tother
+      col+= star*size*color;
+    }
+  }
+  return col;
+}
+  
+void main() {
+  	// Adjust coords to center of the screen and 
+    // corect pixel aspect ratio
+    vec2 uv = (gl_FragCoord.xy-.5*u_resolution.xy)/u_resolution.y;
+    vec2 ms = (u_mouse.xy-u_resolution.xy*.5)/u_resolution.y;
+    uv *= .5;
+    vec3 col = vec3(0.);
+    uv *= r2(ms.x*.25);
+
+    for(float i=0.; i<1.; i+=1./5.) {
+        float depth = fract(i+u_time*.1);
+        float scale = mix(20.,1.,depth);
+        float fade = depth*smoothstep(1.,.9,depth);
+        //uv +=ms;
+		col += star_layer(uv*scale+(i*32.)+ms)*fade;
+    }
+    
+    gl_FragColor = vec4(col,1.0);
+}
+</script>
+
+
+<script src="../js/three.min.js"></script>
+<script src="../js/script.js"></script>
+
+</body>
+</html>

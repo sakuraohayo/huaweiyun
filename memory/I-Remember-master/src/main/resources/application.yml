@@ -1,0 +1,50 @@
+spring:
+  redis:
+    host: 39.98.32.66
+    port: 6379
+  # 发送邮件相关参数
+  mail:
+    host: smtp.exmail.qq.com
+    username: www.1964085132@qq.com
+    password: nhqgnegbkxmddecf
+    default-encoding: UTF-8
+    port: 465
+    properties:
+      mail:
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 5MB
+
+  datasource:
+    # 数据库创建指令，用户：javaweb；密码：JavaWeb2020；数据库：javaweb
+    # create database javaweb;
+    # create user 'javaweb'@'localhost' identified by 'JavaWeb2020';
+    # grant all privileges on javaweb.* to 'javaweb'@'localhost' with grant option;
+    url: jdbc:mysql://localhost:3306/iremember?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    dbcp2:
+      test-on-borrow: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 3600000
+  jpa:
+    # 将SQL语句写入日志文件
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      # 自动更新表
+      ddl-auto: update
+
+    properties:
+      hibernate:
+        format_sql: true
+
+email:
+  subject: "I Remember"
+  content-start: "欢迎您使用I Remember，您本次的验证码是"
+  content-end: "，验证码5分钟内有效，请及时使用。"

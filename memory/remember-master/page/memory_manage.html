@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Remember</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../assets/images/favicon_03.ico">
+
+     <link href="../css/search.css" rel="stylesheet">
+
+    <!--slick-->
+    <link rel="stylesheet" type="text/css" href="../lib/slick/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="../lib/slick/slick.css">
+
+       <link  rel="stylesheet" type="text/css" href="../css/memoryShow.css"/>
+    <!-- Icons css -->
+    <link href="../assets/libs/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/libs/dripicons/webfont/webfont.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/libs/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css" />
+    
+    <!-- App css -->
+    <!-- build:css -->
+    <link href="../assets/css/app.css" rel="stylesheet" type="text/css" />
+    <!-- endbuild -->
+
+    <!--vue support-->
+   
+
+   
+
+
+    
+</head>
+
+<body>
+
+       <!-- Navigation Bar-->
+<header id="topnav">
+    <nav class="navbar-custom">
+        <div class="container-fluid">
+            <ul class="list-unstyled topbar-right-menu float-right mb-0">
+                <li class="dropdown notification-list">
+                    <a class="navbar-toggle nav-link">
+                        <div class="lines">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </a>
+                    <!-- End mobile menu toggle-->
+                </li>
+                <li class="dropdown notification-list">
+                    <a class="nav-link dropdown-toggle nav-user" data-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="false" aria-expanded="false">
+                       <!-- <img src="../assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">  -->
+                       <span class="ml-1"></span><i class="mdi mdi-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown ">
+                        <!-- i1tem-->
+                        <div class="dropdown-item noti-title">
+                            <h6 class="text-overflow m-0">欢迎！</h6>
+                        </div>
+                        <!-- item-->
+                        <a href="personal-center.html" class="dropdown-item notify-item">
+                            <i class="dripicons-user"></i> <span>我的账户</span>
+                        </a>
+
+                        <!-- item-->
+                        <a href="auth-login.html" class="dropdown-item notify-item">
+                            <i class="dripicons-power"></i> <span>退出</span>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+			
+			<ul class="list-inline menu-left mb-0">
+                <li class="float-left">
+                    <a href="index_login.html" class="logo">
+                        <span class="logo-lg">
+                            <img src="../assets/images/Remember-logo.png" alt="" height="45">
+                        </span>
+                    </a>
+                </li>
+            </ul>
+			
+        </div>
+    </nav>
+    <!-- end topbar-main -->
+
+    <div class="topbar-menu">
+        <div class="container-fluid">
+            <div id="navigation">
+                <!-- Navigation Menu-->
+                <ul class="navigation-menu">
+                    <li class="has-submenu">
+                        <a href="index_login.html"><i class="mdi mdi-view-dashboard"></i>主页</a>
+                    </li>
+					
+					<li class="has-submenu">
+                        <a href="#"><i class="mdi mdi-account"></i>个人中心</a>
+                        <ul class="submenu">
+                            <li><a href="personal-center.html">我的账户</a></li>
+                            <li><a href="auth-recoverpassword.html">重置密码</a></li>
+                            <li><a href="memory_manage.html">记忆管理</a></li>
+                        </ul>
+                    </li>
+					
+					<!-- <li class="has-submenu">
+                        <a href="#"><i class="mdi mdi-email-outline"></i>个人中心</a>
+                        <ul class="submenu">
+                            <li><a href="personal-center.html">我的账户</a></li>
+                            <li><a href="memory_manage.html">记忆管理</a></li>
+                        </ul>
+                    </li> -->
+
+                    <li class="has-submenu">
+                        <a href="memory_edit.html"><i class="mdi mdi-circle-edit-outline"></i>记忆编辑</a>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="memory_search.html"><i class="mdi mdi-search-web"></i>记忆搜索</a>
+                    </li>
+
+                </ul>
+                <!-- End navigation menu -->
+
+                <div class="clearfix"></div>
+            </div> <!-- end #navigation -->
+        </div> <!-- end container -->
+    </div> <!-- end navbar-custom -->
+</header>
+<!-- End Navigation Bar-->
+
+
+
+    <div class="wrapper">
+        <div class="container-fluid">
+
+       
+            <div class="page-title-alt-bg"></div>
+            <div class="page-title-box">
+                <ol class="breadcrumb float-right" >
+                    <input type="button" class="button" id="manager" value="管理我的记忆"/>
+            <input type="button" class="button" id="delete" value="批量删除"  style="display: none"/>
+            <input type="button" class="button"  id="cancel" value="取消批量删除"  style="display: none"/>
+
+            </ol>
+                <h4 class="page-title">我的记忆</h4>
+
+            </div>
+                             
+           <!--  <div class="row mt">
+                <div class="col-lg-12" id="result">
+                   
+                </div>
+            
+            </div>
+ -->         
+<div class="row" id="memory">
+       <!--  <div class="col-md-4">col-md-4</div>
+        <div class="col-md-4">col-md-4</div>
+        <div class="col-md-4">col-md-4</div> -->
+        <!-- 说明：每row行共12列，分个3div，每个div平占4列，即3个*4列=12列 -->
+    </div>
+          
+        </div>
+    </div>
+
+
+ <!-- Footer -->
+ <footer class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 text-center">
+                    2022 © MEMORY
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer -->
+
+
+<!-- jQuery  -->
+<script src="../assets/libs/jquery/jquery.min.js"></script>
+<script src="../assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/libs/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- App js -->
+<script src="../assets/js/jquery.core.js"></script>
+<script src="../assets/js/jquery.app.js"></script>
+
+<!--slick-->
+<!-- <script src="../lib/slick/slick.js"></script> -->
+
+
+ <!--jquery support-->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <!--link-->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+       <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <!--import js-->
+    <script src="../js/search.js"></script>
+<!-- edit js-->
+
+</body>
+
+</html>
